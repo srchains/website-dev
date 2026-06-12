@@ -416,7 +416,7 @@ function Hero() {
                   <div className="p-4 text-xs font-mono leading-relaxed">
                     <span className="text-blue-400">&lt;div</span><span className="text-purple-400"> className</span><span className="text-green-400">=&quot;hero&quot;</span><span className="text-blue-400">&gt;</span><br />
                     <span className="text-gray-500 ml-4">{"// Your next website starts here"}</span><br />
-                    <span className="text-blue-400 ml-4">&lt;h1&gt;</span><span className="text-white">Welcome to RP Web</span><span className="text-blue-400">&lt;/h1&gt;</span><br />
+                     <span className="text-blue-400 ml-4">&lt;h1&gt;</span><span className="text-white">Welcome to BuildStack</span><span className="text-blue-400">&lt;/h1&gt;</span><br />
                     <span className="text-blue-400 ml-4">&lt;p&gt;</span><span className="text-gray-400">Built with ❤️ in Salem, Tamilnadu</span><span className="text-blue-400">&lt;/p&gt;</span><br />
                     <span className="text-blue-400">&lt;/div&gt;</span>
                   </div>
