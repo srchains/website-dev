@@ -168,7 +168,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Vikram Mehta",
     business: "Flavor Paradise Restaurant",
-    review: "RP Web Solutions transformed our online presence completely. Our new website brought in 40% more online orders within the first month. The team was incredibly responsive and understood exactly what we needed.",
+    review: "BuildStack Solutions transformed our online presence completely. Our new website brought in 40% more online orders within the first month. The team was incredibly responsive and understood exactly what we needed.",
     rating: 5,
     initials: "VM",
     color: "from-amber-500 to-orange-600"
@@ -184,7 +184,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Suresh Kumar",
     business: "EduTrack Academy",
-    review: "The school management system they developed streamlined our entire administration process. Attendance, grades, fees — all automated. RP Web Solutions delivered beyond our expectations within our budget.",
+    review: "The school management system they developed streamlined our entire administration process. Attendance, grades, fees — all automated. BuildStack Solutions delivered beyond our expectations within our budget.",
     rating: 5,
     initials: "SK",
     color: "from-blue-500 to-indigo-600"
@@ -239,7 +239,7 @@ function Navbar() {
               </div>
             </div>
             <div>
-              <span className="text-lg lg:text-xl font-bold text-white tracking-tight">RP Web</span>
+              <span className="text-lg lg:text-xl font-bold text-white tracking-tight">BuildStack</span>
               <span className="text-lg lg:text-xl font-bold text-blue-400 tracking-tight"> Solutions</span>
             </div>
           </button>
@@ -616,7 +616,7 @@ function About() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-gray-600 leading-relaxed text-lg mb-8">
-              Founded in Salem, Tamilnadu, <strong className="text-[#0A0F2C]">RP Web Solutions</strong> is a team of passionate developers 
+              Founded in Salem, Tamilnadu, <strong className="text-[#0A0F2C]">BuildStack Solutions</strong> is a team of passionate developers 
               and designers who believe every business deserves a stunning online presence. We specialize in building 
               modern, responsive websites and web applications that drive real results.
             </p>
@@ -1080,9 +1080,9 @@ function Footer() {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                 <Code className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-white">
-                RP <span className="text-blue-400">Web Solutions</span>
-              </span>
+               <span className="font-bold text-white">
+                 BuildStack <span className="text-blue-400">Solutions</span>
+               </span>
             </button>
             <p className="text-gray-500 text-sm leading-relaxed mb-4">
               We build modern websites for businesses. Based in Salem, Tamilnadu, serving clients worldwide.
@@ -1157,7 +1157,7 @@ function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-gray-500 text-sm">
-            &copy; {currentYear} RP Web Solutions. All rights reserved.
+            &copy; {currentYear} BuildStack Solutions. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-gray-600">
             <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
