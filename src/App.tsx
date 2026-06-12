@@ -383,9 +383,9 @@ function Hero() {
             {/* Stats Row */}
             <motion.div variants={fadeInUp} className="flex flex-wrap gap-8 justify-center lg:justify-start">
               {[
-                { value: "10+", label: "Projects" },
+                { value: "5+", label: "Projects" },
                 { value: "100%", label: "Client Satisfaction" },
-                { value: "3+", label: "Years Experience" },
+                { value: "1+", label: "Years Experience" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="text-2xl lg:text-3xl font-bold text-white">{stat.value}</div>
@@ -656,9 +656,9 @@ function About() {
               
               <div className="space-y-6">
                 {[
-                  { number: "10+", label: "Projects Delivered", desc: "Across diverse industries" },
-                  { number: "100%", label: "Client Satisfaction", desc: "Every client loves our work" },
-                  { number: "3+", label: "Years of Experience", desc: "Building since 2022" },
+                  { number: "5+", label: "Projects Delivered", desc: "Across diverse industries" },
+                    { number: "100%", label: "Client Satisfaction", desc: "Every client loves our work" },
+                    { number: "1+", label: "Years of Experience", desc: "Building since 2025" },
                   { number: "24/7", label: "Support Available", desc: "We&apos;re always here to help" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-4 p-3 rounded-xl bg-white/5">
@@ -707,6 +707,10 @@ function About() {
 
 /* ── Pricing Section ── */
 function Pricing() {
+  const scrollToContact = () => {
+    const el = document.getElementById("contact");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <section id="pricing" className="relative py-20 lg:py-28 bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -759,27 +763,19 @@ function Pricing() {
                 ))}
               </ul>
 
-              <button className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
-                plan.popular
-                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/25"
-                  : "bg-gray-100 text-[#0A0F2C] hover:bg-gray-200"
-              }`}>
-                {plan.cta === "Most Popular" ? "Get Started" : plan.cta}
+              <button
+                type="button"
+                onClick={scrollToContact}
+                className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer ${
+                  plan.popular
+                    ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/25"
+                    : "bg-gray-100 text-[#0A0F2C] hover:bg-gray-200"
+                }`}>
+                Get Started
               </button>
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Bottom Note */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center text-gray-500 mt-10 text-sm"
-        >
-          Custom Web Apps starting from <strong className="text-[#0A0F2C]">₹50,000</strong> —{" "}
-          <a href="#contact" className="text-blue-500 underline hover:text-blue-600">Contact us for a quote</a>
-        </motion.p>
       </div>
     </section>
   );
@@ -847,6 +843,7 @@ function Contact() {
     email: "",
     phone: "",
     service: "",
+    budget: "",
     message: "",
   });
 
@@ -858,10 +855,17 @@ function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
+    const companyEmail = "buildstacksolution@gmail.com";
+    const companyPhone = "919876543210";
+    const subject = encodeURIComponent(`New Inquiry from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.service}\nBudget: ${formData.budget || "Not specified"}\nMessage: ${formData.message}`
+    );
+    window.open(`https://wa.me/${companyPhone}?text=${encodeURIComponent(`New Inquiry\n\n${body}`)}`, "_blank");
+    window.location.href = `mailto:${companyEmail}?subject=${subject}&body=${body}`;
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 5000);
-    setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+    setFormData({ name: "", email: "", phone: "", service: "", budget: "", message: "" });
   };
 
   return (
@@ -1014,8 +1018,8 @@ function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email</p>
-                    <a href="mailto:contact@rpwebsolutions.com" className="text-white font-medium hover:text-blue-400 transition-colors">
-                      contact@rpwebsolutions.com
+                    <a href="mailto:buildstacksolution@gmail.com" className="text-white font-medium hover:text-blue-400 transition-colors">
+                      buildstacksolution@gmail.com
                     </a>
                   </div>
                 </div>
@@ -1133,8 +1137,8 @@ function Footer() {
             <h4 className="font-semibold text-white mb-4">Contact Us</h4>
             <ul className="space-y-2.5">
               <li>
-                <a href="mailto:contact@rpwebsolutions.com" className="text-gray-500 text-sm hover:text-blue-400 transition-colors">
-                  contact@rpwebsolutions.com
+                <a href="mailto:buildstacksolution@gmail.com" className="text-gray-500 text-sm hover:text-blue-400 transition-colors">
+                  buildstacksolution@gmail.com
                 </a>
               </li>
               <li>
