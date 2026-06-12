@@ -34,6 +34,7 @@ interface TeamMember {
   role: string;
   initials: string;
   color: string;
+  image: string;
 }
 
 interface PricingPlan {
@@ -103,10 +104,10 @@ const portfolioItems: PortfolioItem[] = [
 ];
 
 const teamMembers: TeamMember[] = [
-  { name: "Rahul Patel", role: "Founder & Lead Developer", initials: "RP", color: "from-blue-500 to-indigo-600" },
-  { name: "Priya Sharma", role: "Full-Stack Developer", initials: "PS", color: "from-purple-500 to-pink-600" },
-  { name: "Amit Singh", role: "UI/UX Designer", initials: "AS", color: "from-cyan-500 to-blue-600" },
-  { name: "Neha Gupta", role: "Project Manager", initials: "NG", color: "from-emerald-500 to-teal-600" },
+  { name: "Boopathi", role: "Frontend Developer", initials: "B", color: "from-blue-500 to-indigo-600", image: "/image/boopathi.png" },
+  { name: "Logajith", role: "Full Stack Developer", initials: "L", color: "from-purple-500 to-pink-600", image: "/image/logajith.png" },
+  { name: "Rudra Prasad", role: "Backend Developer", initials: "RP", color: "from-cyan-500 to-blue-600", image: "/image/rudra prasad.png" },
+  { name: "Prabhu", role: "Project Manager", initials: "P", color: "from-emerald-500 to-teal-600", image: "/image/prabhu.png" },
 ];
 
 const pricingPlans: PricingPlan[] = [
@@ -690,8 +691,8 @@ function About() {
                 whileHover={{ y: -5 }}
                 className="text-center p-6 rounded-2xl bg-white border border-gray-100 hover:border-blue-500/20 hover:shadow-lg transition-all duration-500"
               >
-                <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${member.color} flex items-center justify-center text-white text-2xl font-bold mb-4`}>
-                  {member.initials}
+                <div className="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-4">
+                  <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
                 </div>
                 <h4 className="font-bold text-[#0A0F2C]">{member.name}</h4>
                 <p className="text-sm text-gray-500">{member.role}</p>
