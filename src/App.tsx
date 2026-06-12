@@ -113,7 +113,7 @@ const teamMembers: TeamMember[] = [
 const pricingPlans: PricingPlan[] = [
   {
     name: "Starter",
-    price: "₹5,000 – ₹10,000",
+    price: "₹3,000 – ₹5,000",
     description: "Perfect for freelancers and professionals",
     features: [
       "1-Page Portfolio Website",
@@ -123,12 +123,13 @@ const pricingPlans: PricingPlan[] = [
       "Basic SEO Setup",
       "1 Month Free Maintenance"
     ],
-    cta: "Get Started",
+    popular: true,
+    cta: "Most Popular",
     gradient: "from-slate-500 to-slate-700"
   },
   {
     name: "Business",
-    price: "₹10,000 – ₹20,000",
+    price: "₹8,000 – ₹12,000",
     description: "Ideal for growing businesses and startups",
     features: [
       "Up to 5 Pages Website",
@@ -140,13 +141,12 @@ const pricingPlans: PricingPlan[] = [
       "3 Months Free Maintenance",
       "Email Support"
     ],
-    popular: true,
-    cta: "Most Popular",
+    cta: "Get Started",
     gradient: "from-blue-500 to-indigo-600"
   },
   {
     name: "E-commerce",
-    price: "₹15,000 – ₹25,000",
+    price: "₹10,000 – ₹15,000",
     description: "Full-featured online stores",
     features: [
       "Up to 50 Products",
