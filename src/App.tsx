@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import {
   Menu, X, ChevronRight, Star, ExternalLink, Check,
   Code, ShoppingCart, Server, Wrench, TrendingUp, Palette,
@@ -848,24 +849,48 @@ function Contact() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const companyEmail = "buildstacksolution@gmail.com";
-    const companyPhone = "919876543210";
-    const subject = encodeURIComponent(`New Inquiry from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.service}\nBudget: ${formData.budget || "Not specified"}\nMessage: ${formData.message}`
-    );
-    window.open(`https://wa.me/${companyPhone}?text=${encodeURIComponent(`New Inquiry\n\n${body}`)}`, "_blank");
-    window.location.href = `mailto:${companyEmail}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-    setFormData({ name: "", email: "", phone: "", service: "", budget: "", message: "" });
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("https://formspree.io/f/mgobpplp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          budget: formData.budget || "Not specified",
+          message: formData.message,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000);
+        setFormData({ name: "", email: "", phone: "", service: "", budget: "", message: "" });
+      } else {
+        const data = await res.json();
+        setError(data?.errors?.[0]?.message || "Failed to send message. Please try again.");
+      }
+    } catch (err: any) {
+      console.error("Formspree Error:", err);
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -959,7 +984,7 @@ function Contact() {
                     <option value="ecommerce" className="bg-[#0A0F2C]">E-commerce Development</option>
                     <option value="webapp" className="bg-[#0A0F2C]">Web App (Django/Flask)</option>
                     <option value="maintenance" className="bg-[#0A0F2C]">Maintenance & Support</option>
-<option value="portfolio" className="bg-[#0A0F2C]">Portfolio Website</option>
+                    <option value="portfolio" className="bg-[#0A0F2C]">Portfolio Website</option>
                     <option value="other" className="bg-[#0A0F2C]">Other</option>
                   </select>
                 </div>
@@ -967,6 +992,8 @@ function Contact() {
                   <label className="block text-sm font-medium text-gray-300 mb-2">Budget Range</label>
                   <select
                     name="budget"
+                    value={formData.budget}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all"
                   >
                     <option value="" className="bg-[#0A0F2C]">Select budget</option>
@@ -988,17 +1015,27 @@ function Contact() {
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all resize-none"
                   />
                 </div>
-                <div className="sm:col-span-2">
-                  <button
-                    type="submit"
-                    className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-blue-500/25 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2"
-                  >
-                    <Send className="w-5 h-5" />
-                    Send Message
-                  </button>
-                </div>
-              </div>
-            )}
+<div className="sm:col-span-2">
+                   <button
+                     type="submit"
+                     disabled={loading}
+                     className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-blue-500/25 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                   >
+                     {loading ? (
+                       "Sending..."
+                     ) : (
+                       <>
+                         <Send className="w-5 h-5" />
+                         Send Message
+                       </>
+                     )}
+                   </button>
+                   {error && (
+                     <p className="text-red-400 text-sm mt-2">{error}</p>
+                   )}
+                 </div>
+               </div>
+             )}
           </motion.form>
 
           {/* Sidebar Info */}
@@ -1018,9 +1055,9 @@ function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email</p>
-                    <a href="mailto:buildstacksolution@gmail.com" className="text-white font-medium hover:text-blue-400 transition-colors">
-                      buildstacksolution@gmail.com
-                    </a>
+<a href="mailto:logajith0490@gmail.com" className="text-white font-medium hover:text-blue-400 transition-colors">
+                       logajith0490@gmail.com
+                     </a>
                   </div>
                 </div>
 
@@ -1137,8 +1174,8 @@ function Footer() {
             <h4 className="font-semibold text-white mb-4">Contact Us</h4>
             <ul className="space-y-2.5">
               <li>
-                <a href="mailto:buildstacksolution@gmail.com" className="text-gray-500 text-sm hover:text-blue-400 transition-colors">
-                  buildstacksolution@gmail.com
+                <a href="mailto:logajith0490@gmail.com" className="text-gray-500 text-sm hover:text-blue-400 transition-colors">
+                  logajith0490@gmail.com
                 </a>
               </li>
               <li>
