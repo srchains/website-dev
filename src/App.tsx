@@ -96,12 +96,7 @@ const services: ServiceCard[] = [
 ];
 
 const portfolioItems: PortfolioItem[] = [
-  { category: "business", title: "Restaurant Website", tech: "React · Tailwind CSS · Node.js", imageLabel: "Flavor Paradise", gradient: "from-amber-500 to-orange-600" },
-  { category: "business", title: "Real Estate Website", tech: "Next.js · PostgreSQL · Mapbox", imageLabel: "PrimeHaven Estates", gradient: "from-emerald-500 to-teal-600" },
-  { category: "webapps", title: "School Management System", tech: "Django · React · PostgreSQL", imageLabel: "EduTrack Pro", gradient: "from-blue-500 to-indigo-600" },
-  { category: "webapps", title: "Inventory Management App", tech: "Flask · SQLite · Chart.js", imageLabel: "StockWise", gradient: "from-purple-500 to-pink-600" },
   { category: "ecommerce", title: "SR Chains", tech: "React.js · CSS · HTML", imageLabel: "E-commerce Store", gradient: "from-yellow-500 to-amber-600", url: "https://srchains.com/", image: "https://srchains.com/cdn/shop/files/B2_492505f8-0e8f-4a4f-a29f-4298de4a2b31.jpg?v=1771480045&width=600" },
-  { category: "business", title: "Portfolio Website", tech: "React · Framer Motion · Tailwind", imageLabel: "Artisan Portfolio", gradient: "from-rose-500 to-red-600" },
 ];
 
 const teamMembers: TeamMember[] = [
@@ -499,18 +494,6 @@ function Services() {
 
 /* ── Portfolio Section ── */
 function Portfolio() {
-  const [activeTab, setActiveTab] = useState("all");
-  const tabs = [
-    { label: "All", value: "all" },
-    { label: "Business", value: "business" },
-    { label: "E-commerce", value: "ecommerce" },
-    { label: "Web Apps", value: "webapps" },
-  ];
-
-  const filtered = activeTab === "all"
-    ? portfolioItems
-    : portfolioItems.filter((item) => item.category === activeTab);
-
   return (
     <section id="portfolio" className="relative py-20 lg:py-28 bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -519,32 +502,10 @@ function Portfolio() {
           subtitle="Showcasing some of our favorite projects — each built with passion and precision."
         />
 
-        {/* Filter Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-2 mb-10"
-        >
-          {tabs.map((tab) => (
-            <button
-              key={tab.value}
-              onClick={() => setActiveTab(tab.value)}
-              className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
-                activeTab === tab.value
-                  ? "bg-[#0A0F2C] text-white shadow-lg"
-                  : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </motion.div>
-
         {/* Portfolio Grid */}
         <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           <AnimatePresence mode="popLayout">
-            {filtered.map((item, i) => (
+            {portfolioItems.map((item, i) => (
               <motion.div
                 key={item.title}
                 layout

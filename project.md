@@ -142,8 +142,8 @@ Lucide React 1.17.0
 | **Navbar** | Sticky, blur backdrop, smooth scroll links, mobile hamburger menu |
 | **Hero** | Gradient background, animated headline, 2 CTA buttons |
 | **About** | Company story, 3 value cards, stats panel, team members grid |
-| **Services** | 6 service cards with hover animations |
-| **Portfolio** | Filterable grid (All / Business / E-commerce / Web Apps) |
+| **Services** | 5 service cards with hover animations |
+| **Portfolio** | Project showcase with single featured project |
 | **Pricing** | 3 plans — Starter ₹3k–₹5k, Business ₹8k–₹12k, E-commerce ₹10k–₹15k |
 | **Testimonials** | 3 client reviews with star ratings |
 | **Contact** | Form + contact info sidebar |
@@ -216,3 +216,13 @@ VITE_EMAILJS_PUBLIC_KEY=m3X-ei08utGAdmdQx
 - Each topic has its own section with timestamps and details
 
 ---
+
+### ✅ Portfolio Section Simplified
+**Date:** 2026-06-14
+
+**What was done:**
+- Removed Portfolio filter tabs (All / Business / E-commerce / Web Apps)
+- Removed all portfolio projects except "SR Chains"
+- Portfolio now displays only the SR Chains e-commerce project
+
+**Result:** Portfolio section now shows single featured project without category filtering

@@ -96,7 +96,7 @@ The contact form uses **[Formspree](https://formspree.io/)** (free, 50 submissio
 | Hero | `#home` | Landing banner with CTA buttons |
 | About | `#about` | Company info, values, team members |
 | Services | `#services` | 5 service cards |
-| Portfolio | `#portfolio` | Filterable project showcase |
+| Portfolio | `#portfolio` | Project showcase with single featured project |
 | Pricing | `#pricing` | 3 pricing plans (Starter / Business / E-commerce) |
 | Testimonials | — | 3 client reviews |
 | Contact | `#contact` | Contact form + contact info |
@@ -129,18 +129,20 @@ The contact form uses **[Formspree](https://formspree.io/)** (free, 50 submissio
 
 | Project | Category | Tech |
 |---|---|---|
-| Restaurant Website | Business | React · Tailwind CSS · Node.js |
-| Real Estate Website | Business | Next.js · PostgreSQL · Mapbox |
-| School Management System | Web App | Django · React · PostgreSQL |
-| Inventory Management App | Web App | Flask · SQLite · Chart.js |
 | SR Chains (Live) | E-commerce | React.js · CSS · HTML |
-| Portfolio Website | Business | React · Framer Motion · Tailwind |
 
 ---
 
 ## 📝 Changelog
 
 All changes to this project are documented here.
+
+---
+
+### [v1.3.0] — Portfolio Simplified
+- ✅ Removed Portfolio filter tabs (All / Business / E-commerce / Web Apps)
+- ✅ Removed all portfolio projects except SR Chains
+- ✅ Portfolio now displays single featured project
 
 ---
 
