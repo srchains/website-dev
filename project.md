@@ -57,49 +57,79 @@
 **What was done:**
 - Removed `import emailjs from "@emailjs/browser"` from `App.tsx`
 - Removed `emailjs.init()` from `useEffect`
-- Replaced entire `handleSubmit` logic:
+- Replaced entire `handleSubmit` logic with a `fetch()` POST to Formspree
 
-  **Before (EmailJS):**
-  ```ts
-  await emailjs.send(serviceId, templateId, { from_name, from_email, ... });
-  ```
-
-  **After (Formspree):**
-  ```ts
-  const res = await fetch("https://formspree.io/f/mgobpplp", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({ name, email, phone, service, budget, message }),
-  });
-  ```
-
-- Added proper error handling — shows real error message from Formspree API if it fails
-- Formspree endpoint: `https://formspree.io/f/mgobpplp`
+**Result:** ❌ Replaced again — Formspree has a 50/month limit and no branding control
 
 ---
 
-### ✅ (Optional) Migrate to Resend via Vercel Serverless
+### ✅ Step 3 — Migrated from Formspree → Resend (via local server + Vercel)
+**Date:** 2026-06-15
 
-**Why:** Uses a secure server-side API key and gives full control over email templates and delivery.
+**Why changed:**
+- Formspree has a 50 submissions/month cap on the free tier
+- Resend gives full control over email content, branding, and delivery
+- More professional solution with no third-party form handling
 
-**How:** Add `RESEND_API_KEY` in Vercel environment variables and deploy. The repo includes `api/send-email.js` (Vercel Function) that forwards contact form submissions to Resend.
+**What was done:**
 
- Submissions go to: `buildstacksolution@gmail.com`
+1. **Installed new packages:**
+   ```
+   resend, express, cors, dotenv
+   ```
 
-**Result:** ✅ Contact form now works — emails are delivered to Gmail inbox
+2. **Created `server.cjs`** — Local Express dev server:
+   - Runs on `http://localhost:3001`
+   - Handles `POST /api/send-email`
+   - Uses Resend SDK to send beautifully formatted HTML emails
+   - Loads `.env.local` for the API key
 
-**Result:** ✅ Contact form now works — emails are delivered to Gmail inbox
+3. **Updated `api/send-email.js`** — Vercel Serverless Function:
+   - Upgraded from raw `fetch()` to the Resend SDK
+   - Reads `RESEND_API_KEY`, `EMAIL_TO`, `EMAIL_FROM` from Vercel env vars
+   - Sends a styled HTML email with all form fields
+
+4. **Updated `vite.config.ts`** — Added dev proxy:
+   - `/api/*` requests during `npm run dev` are forwarded to `http://localhost:3001`
+   - This makes the contact form work locally without CORS issues
+
+5. **Updated `package.json`** — Added scripts:
+   ```json
+   "server": "node server.cjs",
+   "dev:all": "start \"Email API\" node server.cjs && vite"
+   ```
+
+6. **Created/updated `.env.local`:**
+   ```env
+   RESEND_API_KEY=<your_key>
+   EMAIL_TO=buildstacksolution@gmail.com
+   EMAIL_FROM=BuildStack Solutions <onboarding@resend.dev>
+   ```
+
+7. **Fixed `src/App.tsx`:** Cleaned up stale "Formspree Error" label in `console.error`
+
+**Email HTML template features:**
+- Styled table layout with all form fields (name, email, phone, service, budget, message)
+- Reply-to set to the sender's email address
+- BuildStack branding in footer
+
+**Tested:** ✅ Live test email sent and received — ID `60e637ab-591f-4181-90d9-635d32ea2fa4`
+
+**Result:** ✅ Contact form now sends real emails to `buildstacksolution@gmail.com` via Resend
+
+---
 
 ### 📬 Current Email Setup (Active)
 
 | Item | Value |
 |---|---|
-| **Provider** | Formspree |
-| **Endpoint** | `https://formspree.io/f/mgobpplp` |
+| **Provider** | Resend (resend.com) |
+| **Local handler** | `server.cjs` (Express on port 3001) |
+| **Production handler** | `api/send-email.js` (Vercel Serverless) |
 | **Receives to** | `buildstacksolution@gmail.com` |
-| **Free limit** | 50 submissions / month |
+| **Sender** | `onboarding@resend.dev` (test) → verify domain for custom sender |
 | **Fields sent** | name, email, phone, service, budget, message |
-| **API keys needed** | None |
+| **API key location** | `.env.local` (local) / Vercel env vars (production) |
 
 ---
 
@@ -187,7 +217,7 @@ Lucide React 1.17.0
 |---|---|
 | 2026-06-13 | Created with placeholder values for EmailJS |
 | 2026-06-13 | Updated with real EmailJS credentials (`service_24azuah`, `template_jj4imtq`, `m3X-ei08utGAdmdQx`) |
-| 2026-06-13 | EmailJS credentials kept in file but no longer used — Formspree requires no env vars |
+| 2026-06-13 | EmailJS credentials kept in file but no longer used |
 
 **Current `.env` contents:**
 ```env
@@ -195,7 +225,48 @@ VITE_EMAILJS_SERVICE_ID=service_24azuah
 VITE_EMAILJS_TEMPLATE_ID=template_jj4imtq
 VITE_EMAILJS_PUBLIC_KEY=m3X-ei08utGAdmdQx
 ```
-> ⚠️ These are unused now (Formspree replaced EmailJS), but kept for reference.
+> ⚠️ These are unused now (Resend replaced EmailJS via Formspree), but kept for reference.
+
+---
+
+### ✅ `.env.local` File Created
+**Date:** 2026-06-15
+
+**File:** `.env.local` (not committed to Git — in `.gitignore`)
+
+```env
+RESEND_API_KEY=<your_resend_api_key>
+EMAIL_TO=buildstacksolution@gmail.com
+EMAIL_FROM=BuildStack Solutions <onboarding@resend.dev>
+```
+
+> 🔒 Never commit this file. The API key grants email-sending access to your Resend account.
+
+---
+
+### ✅ `vite.config.ts` Updated — Dev Proxy Added
+**Date:** 2026-06-15
+
+**What changed:**
+- Added `server.proxy` block so `/api/*` calls during `npm run dev` are forwarded to `http://localhost:3001` (the local Express email server)
+
+---
+
+### ✅ `package.json` Updated — New Scripts
+**Date:** 2026-06-15
+
+**Scripts added:**
+```json
+"server": "node server.cjs",
+"dev:all": "start \"Email API\" node server.cjs && vite"
+```
+
+---
+
+### ✅ `server.cjs` Created — Local Email API Server
+**Date:** 2026-06-15
+
+**Purpose:** Provides a local `/api/send-email` endpoint during development so the contact form works before deploying to Vercel.
 
 ---
 
@@ -213,6 +284,8 @@ VITE_EMAILJS_PUBLIC_KEY=m3X-ei08utGAdmdQx
 - Portfolio projects list
 - Pricing plans
 - Full changelog (v1.0.0 → v1.2.0)
+
+**Updated:** 2026-06-15 — Reflects Resend migration and new local dev server setup
 
 ---
 

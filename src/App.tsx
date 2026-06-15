@@ -847,7 +847,7 @@ function Contact() {
         setError(data?.error || 'Failed to send message. Please try again.');
       }
     } catch (err: any) {
-      console.error("Formspree Error:", err);
+      console.error("Send Email Error:", err);
       setError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);

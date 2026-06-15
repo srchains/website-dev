@@ -1,16 +1,31 @@
-// Vercel Serverless Function — sends email via Resend SDK
-// Set RESEND_API_KEY, EMAIL_TO, EMAIL_FROM in Vercel Environment Variables
+// Local development server for email API using Resend
+// Run with: npm run server
+//
+// NOTE: This file uses CommonJS (require) to ensure dotenv loads
+// before any other module reads process.env.
 
-import { Resend } from 'resend';
+const path = require('path');
+const dotenv = require('dotenv');
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
+// Load .env first, then .env.local overrides
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({ path: path.resolve(__dirname, '.env.local'), override: true });
 
-  if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is not set');
+const express = require('express');
+const cors = require('cors');
+const { Resend } = require('resend');
+
+const app = express();
+const PORT = process.env.API_PORT || 3001;
+
+app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173'] }));
+app.use(express.json());
+
+app.post('/api/send-email', async (req, res) => {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    console.error('❌ RESEND_API_KEY is not set in .env.local');
     return res.status(500).json({ error: 'Server misconfiguration: RESEND_API_KEY not set' });
   }
 
@@ -19,7 +34,7 @@ export default async function handler(req, res) {
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #f9f9f9; border-radius: 8px;">
       <h2 style="color: #0A0F2C; border-bottom: 2px solid #3b82f6; padding-bottom: 12px;">
-        📩 New Contact from ${name || 'Anonymous'}
+        &#128233; New Contact from ${name || 'Anonymous'}
       </h2>
       <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
         <tr>
@@ -56,24 +71,32 @@ export default async function handler(req, res) {
   `;
 
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = new Resend(apiKey);
 
     const { data, error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || 'BuildStack Solutions <onboarding@resend.dev>',
       to: [process.env.EMAIL_TO || 'buildstacksolution@gmail.com'],
       subject: `New Contact: ${name || 'Website Inquiry'}`,
       html,
-      reply_to: email,
+      reply_to: email || undefined,
     });
 
     if (error) {
-      console.error('Resend error:', error);
+      console.error('❌ Resend API error:', JSON.stringify(error));
       return res.status(500).json({ error: error.message || 'Failed to send email' });
     }
 
+    console.log('✅ Email sent! ID:', data?.id);
     return res.status(200).json({ ok: true, id: data?.id });
   } catch (err) {
-    console.error('send-email error', err);
+    console.error('❌ Unexpected error:', err.message);
     return res.status(500).json({ error: err.message || 'Server error' });
   }
-}
+});
+
+app.listen(PORT, () => {
+  console.log(`\n🚀 Email API server running at http://localhost:${PORT}`);
+  console.log(`📧 Resend API key: ${process.env.RESEND_API_KEY ? '✅ loaded' : '❌ MISSING - check .env.local'}`);
+  console.log(`📬 Sending to: ${process.env.EMAIL_TO || 'buildstacksolution@gmail.com (default)'}`);
+  console.log(`📤 From: ${process.env.EMAIL_FROM || 'BuildStack Solutions <onboarding@resend.dev> (default)'}\n`);
+});
