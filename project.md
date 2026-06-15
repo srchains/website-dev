@@ -75,11 +75,20 @@
 
 - Added proper error handling — shows real error message from Formspree API if it fails
 - Formspree endpoint: `https://formspree.io/f/mgobpplp`
-- Submissions go to: `logajith0490@gmail.com`
+
+---
+
+### ✅ (Optional) Migrate to Resend via Vercel Serverless
+
+**Why:** Uses a secure server-side API key and gives full control over email templates and delivery.
+
+**How:** Add `RESEND_API_KEY` in Vercel environment variables and deploy. The repo includes `api/send-email.js` (Vercel Function) that forwards contact form submissions to Resend.
+
+ Submissions go to: `buildstacksolution@gmail.com`
 
 **Result:** ✅ Contact form now works — emails are delivered to Gmail inbox
 
----
+**Result:** ✅ Contact form now works — emails are delivered to Gmail inbox
 
 ### 📬 Current Email Setup (Active)
 
@@ -87,7 +96,7 @@
 |---|---|
 | **Provider** | Formspree |
 | **Endpoint** | `https://formspree.io/f/mgobpplp` |
-| **Receives to** | `logajith0490@gmail.com` |
+| **Receives to** | `buildstacksolution@gmail.com` |
 | **Free limit** | 50 submissions / month |
 | **Fields sent** | name, email, phone, service, budget, message |
 | **API keys needed** | None |

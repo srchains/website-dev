@@ -9,6 +9,7 @@
 Run locally at: `http://localhost:5174/`
 
 ---
+re_im2BmvWc_94xivFpddvNiHFPXSY9J9M1P
 
 ## 🛠️ Tech Stack
 
@@ -69,12 +70,34 @@ npm run build
 
 ---
 
+## 🚀 Deploy to Vercel (Serverless functions)
+
+1. Install the Vercel CLI (optional):
+```bash
+npx vercel login
+```
+2. Create a Vercel project pointing to this repository and set an environment variable:
+
+- Key: `RESEND_API_KEY`
+- Value: (your Resend API key from https://resend.com)
+
+3. Deploy:
+```bash
+npx vercel --prod
+```
+
+Notes:
+- The project includes a serverless function at `api/send-email.js` that sends emails via Resend. Keep `RESEND_API_KEY` secret in Vercel dashboard.
+- Ensure the `from` address used in `api/send-email.js` is a verified sending address or domain in your Resend account.
+
+---
+
 ## 📧 Contact Form Setup
 
 The contact form uses **[Formspree](https://formspree.io/)** (free, 50 submissions/month).
 
 - **Endpoint:** `https://formspree.io/f/mgobpplp`
-- **Receives to:** `logajith0490@gmail.com`
+- **Receives to:** `buildstacksolution@gmail.com`
 - No API keys or environment variables required — works out of the box.
 
 ### Form Fields Sent
@@ -179,7 +202,7 @@ All changes to this project are documented here.
 - ✅ Removed `@emailjs/browser` dependency from code
 - ✅ Replaced EmailJS `send()` with a plain `fetch()` POST to Formspree
 - ✅ Formspree endpoint: `https://formspree.io/f/mgobpplp`
-- ✅ Form submissions now delivered to `logajith0490@gmail.com`
+- ✅ Form submissions now delivered to `buildstacksolution@gmail.com`
 - ✅ Added proper error handling — shows actual API error message if sending fails
 - ✅ No API keys or environment variables needed for form to work
 - ✅ Form resets and shows "Thank You" screen on success
@@ -196,6 +219,6 @@ _No upcoming changes planned yet._
 
 ## 📞 Contact
 
-- **Email:** logajith0490@gmail.com
+- **Email:** buildstacksolution@gmail.com
 - **Location:** Salem, Tamilnadu
 - **Business:** BuildStack Solutions

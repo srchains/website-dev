@@ -825,15 +825,15 @@ function Contact() {
     setError("");
 
     try {
-      const res = await fetch("https://formspree.io/f/mgobpplp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           service: formData.service,
-          budget: formData.budget || "Not specified",
+          budget: formData.budget || 'Not specified',
           message: formData.message,
         }),
       });
@@ -841,10 +841,10 @@ function Contact() {
       if (res.ok) {
         setSubmitted(true);
         setTimeout(() => setSubmitted(false), 5000);
-        setFormData({ name: "", email: "", phone: "", service: "", budget: "", message: "" });
+        setFormData({ name: '', email: '', phone: '', service: '', budget: '', message: '' });
       } else {
-        const data = await res.json();
-        setError(data?.errors?.[0]?.message || "Failed to send message. Please try again.");
+        const data = await res.json().catch(() => ({}));
+        setError(data?.error || 'Failed to send message. Please try again.');
       }
     } catch (err: any) {
       console.error("Formspree Error:", err);
@@ -917,7 +917,7 @@ function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder="john@example.com"
+                    placeholder="buildstacksolution@gmail.com"
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all"
                   />
                 </div>
@@ -1016,8 +1016,8 @@ function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email</p>
-<a href="mailto:logajith0490@gmail.com" className="text-white font-medium hover:text-blue-400 transition-colors">
-                       logajith0490@gmail.com
+                  <a href="mailto:buildstacksolution@gmail.com" className="text-white font-medium hover:text-blue-400 transition-colors">
+                       buildstacksolution@gmail.com
                      </a>
                   </div>
                 </div>
@@ -1135,8 +1135,8 @@ function Footer() {
             <h4 className="font-semibold text-white mb-4">Contact Us</h4>
             <ul className="space-y-2.5">
               <li>
-                <a href="mailto:logajith0490@gmail.com" className="text-gray-500 text-sm hover:text-blue-400 transition-colors">
-                  logajith0490@gmail.com
+                <a href="mailto:buildstacksolution@gmail.com" className="text-gray-500 text-sm hover:text-blue-400 transition-colors">
+                  buildstacksolution@gmail.com
                 </a>
               </li>
               <li>
