@@ -164,7 +164,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Vikram Mehta",
     business: "Flavor Paradise Restaurant",
-    review: "BuildStack Solutions transformed our online presence completely. Our new website brought in 40% more online orders within the first month. The team was incredibly responsive and understood exactly what we needed.",
+    review: "BuildStack Solution transformed our online presence completely. Our new website brought in 40% more online orders within the first month. The team was incredibly responsive and understood exactly what we needed.",
     rating: 5,
     initials: "VM",
     color: "from-amber-500 to-orange-600"
@@ -180,7 +180,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Suresh Kumar",
     business: "EduTrack Academy",
-    review: "The school management system they developed streamlined our entire administration process. Attendance, grades, fees — all automated. BuildStack Solutions delivered beyond our expectations within our budget.",
+    review: "The school management system they developed streamlined our entire administration process. Attendance, grades, fees — all automated. BuildStack Solution delivered beyond our expectations within our budget.",
     rating: 5,
     initials: "SK",
     color: "from-blue-500 to-indigo-600"
@@ -198,6 +198,57 @@ const fadeInUp = {
 };
 
 // ── Sub-components ────────────────────────────────────────────
+
+/* ── Logo Icon ── */
+function LogoIcon({ className = "w-full h-full" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      className={className}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Top Slab */}
+      <path
+        d="M50 12L82 28L50 44L18 28Z"
+        fill="url(#logoTopGrad)"
+      />
+      <path d="M18 28V34L50 50V44L18 28Z" fill="url(#logoLeftGrad)" />
+      <path d="M82 28V34L50 50V44L82 28Z" fill="url(#logoRightGrad)" />
+
+      {/* Middle Slab */}
+      <path
+        d="M50 30L82 46L50 62L18 46Z"
+        fill="url(#logoTopGrad)"
+      />
+      <path d="M18 46V52L50 68V62L18 46Z" fill="url(#logoLeftGrad)" />
+      <path d="M82 46V52L50 68V62L82 46Z" fill="url(#logoRightGrad)" />
+
+      {/* Bottom Slab */}
+      <path
+        d="M50 48L82 64L50 80L18 64Z"
+        fill="url(#logoTopGrad)"
+      />
+      <path d="M18 64V70L50 86V80L18 64Z" fill="url(#logoLeftGrad)" />
+      <path d="M82 64V70L50 86V80L82 64Z" fill="url(#logoRightGrad)" />
+
+      <defs>
+        <linearGradient id="logoTopGrad" x1="18" y1="28" x2="82" y2="44" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#60A5FA" />
+          <stop offset="100%" stopColor="#3B82F6" />
+        </linearGradient>
+        <linearGradient id="logoLeftGrad" x1="18" y1="28" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#2563EB" />
+          <stop offset="100%" stopColor="#1D4ED8" />
+        </linearGradient>
+        <linearGradient id="logoRightGrad" x1="50" y1="44" x2="82" y2="28" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#1E40AF" />
+          <stop offset="100%" stopColor="#1E3A8A" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
 
 /* ── Navbar ── */
 function Navbar() {
@@ -227,16 +278,13 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <button onClick={() => handleNav("#home")} className="flex items-center gap-2 group">
-            <div className="relative w-8 h-8 lg:w-10 lg:h-10">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg rotate-45 group-hover:rotate-[135deg] transition-all duration-500" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Code className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
-              </div>
+          <button onClick={() => handleNav("#home")} className="flex items-center gap-2.5 group">
+            <div className="relative w-8 h-8 lg:w-9 lg:h-9 group-hover:scale-110 transition-transform duration-300">
+              <LogoIcon />
             </div>
             <div>
               <span className="text-lg lg:text-xl font-bold text-white tracking-tight">BuildStack</span>
-              <span className="text-lg lg:text-xl font-bold text-blue-400 tracking-tight"> Solutions</span>
+              <span className="text-lg lg:text-xl font-bold text-blue-400 tracking-tight"> Solution</span>
             </div>
           </button>
 
@@ -578,7 +626,7 @@ function About() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-gray-600 leading-relaxed text-lg mb-8">
-              Founded in Salem, Tamilnadu, <strong className="text-[#0A0F2C]">BuildStack Solutions</strong> is a team of passionate developers 
+              Founded in Salem, Tamilnadu, <strong className="text-[#0A0F2C]">BuildStack Solution</strong> is a team of passionate developers 
               and designers who believe every business deserves a stunning online presence. We specialize in building 
               modern, responsive websites and web applications that drive real results.
             </p>
@@ -805,26 +853,69 @@ function Contact() {
     email: "",
     phone: "",
     service: "",
-    budget: "",
+    budget: "3000",
     message: "",
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (errors[e.target.name]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[e.target.name];
+        return next;
+      });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) {
+      newErrors.name = "Please enter your name.";
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Please enter your email address.";
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        newErrors.email = "Please enter a valid email address.";
+      }
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Please enter your phone number.";
+    } else {
+      const digitsOnly = formData.phone.replace(/\D/g, "");
+      if (digitsOnly.length !== 10) {
+        newErrors.phone = "Phone number must be exactly 10 digits.";
+      }
+    }
+    if (!formData.service) {
+      newErrors.service = "Please select a service.";
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Please enter your message.";
+    }
+    return newErrors;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
     setLoading(true);
     setError("");
 
     try {
+      const budgetValue = formData.budget === "50000" ? "₹50,000+ (Custom)" : `₹${parseInt(formData.budget).toLocaleString("en-IN")}`;
       const res = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -833,7 +924,7 @@ function Contact() {
           email: formData.email,
           phone: formData.phone,
           service: formData.service,
-          budget: formData.budget || 'Not specified',
+          budget: budgetValue,
           message: formData.message,
         }),
       });
@@ -841,7 +932,7 @@ function Contact() {
       if (res.ok) {
         setSubmitted(true);
         setTimeout(() => setSubmitted(false), 5000);
-        setFormData({ name: '', email: '', phone: '', service: '', budget: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', service: '', budget: '3000', message: '' });
       } else {
         const data = await res.json().catch(() => ({}));
         setError(data?.error || 'Failed to send message. Please try again.');
@@ -904,11 +995,19 @@ function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    required
                     placeholder="John Doe"
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                    className={`w-full px-4 py-3 bg-white/5 border ${
+                      errors.name ? "border-red-500 focus:ring-red-500/50" : "border-white/10 focus:border-blue-500 focus:ring-blue-500/50"
+                    } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all`}
                   />
+                  {errors.name && (
+                    <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1.5">
+                      <span className="inline-block w-1 h-1 bg-red-400 rounded-full" />
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
                   <input
@@ -916,11 +1015,19 @@ function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
                     placeholder="buildstacksolution@gmail.com"
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                    className={`w-full px-4 py-3 bg-white/5 border ${
+                      errors.email ? "border-red-500 focus:ring-red-500/50" : "border-white/10 focus:border-blue-500 focus:ring-blue-500/50"
+                    } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all`}
                   />
+                  {errors.email && (
+                    <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1.5">
+                      <span className="inline-block w-1 h-1 bg-red-400 rounded-full" />
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
                   <input
@@ -929,16 +1036,27 @@ function Contact() {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+91 98765 43210"
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                    className={`w-full px-4 py-3 bg-white/5 border ${
+                      errors.phone ? "border-red-500 focus:ring-red-500/50" : "border-white/10 focus:border-blue-500 focus:ring-blue-500/50"
+                    } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all`}
                   />
+                  {errors.phone && (
+                    <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1.5">
+                      <span className="inline-block w-1 h-1 bg-red-400 rounded-full" />
+                      {errors.phone}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Service Needed</label>
                   <select
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                    className={`w-full px-4 py-3 bg-white/5 border ${
+                      errors.service ? "border-red-500 focus:ring-red-500/50" : "border-white/10 focus:border-blue-500 focus:ring-blue-500/50"
+                    } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all`}
                   >
                     <option value="" className="bg-[#0A0F2C]">Select a service</option>
                     <option value="business-website" className="bg-[#0A0F2C]">Business Website</option>
@@ -948,55 +1066,83 @@ function Contact() {
                     <option value="portfolio" className="bg-[#0A0F2C]">Portfolio Website</option>
                     <option value="other" className="bg-[#0A0F2C]">Other</option>
                   </select>
+                  {errors.service && (
+                    <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1.5">
+                      <span className="inline-block w-1 h-1 bg-red-400 rounded-full" />
+                      {errors.service}
+                    </p>
+                  )}
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Budget Range</label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all"
-                  >
-                    <option value="" className="bg-[#0A0F2C]">Select budget</option>
-                    <option value="5-10k" className="bg-[#0A0F2C]">₹5,000 – ₹10,000</option>
-                    <option value="10-25k" className="bg-[#0A0F2C]">₹10,000 – ₹25,000</option>
-                    <option value="20k-30k" className="bg-[#0A0F2C]">₹20,000 – ₹30,000</option>
-                    <option value="50k+" className="bg-[#0A0F2C]">₹50,000+ (Custom)</option>
-                  </select>
+                  <div className="flex justify-between items-center mb-2">
+                    <label className="block text-sm font-medium text-gray-300">Budget Range</label>
+                    <span className="text-sm font-bold text-blue-400">
+                      {formData.budget === "50000" || parseInt(formData.budget) >= 50000
+                        ? "₹50,000+"
+                        : `₹${parseInt(formData.budget || "3000").toLocaleString("en-IN")}`}
+                    </span>
+                  </div>
+                  <div className="relative pt-2">
+                    <input
+                      type="range"
+                      name="budget"
+                      min="3000"
+                      max="50000"
+                      step="1000"
+                      value={formData.budget || "3000"}
+                      onChange={handleChange}
+                      className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-blue-500 focus:outline-none"
+                    />
+                    <div className="flex justify-between text-[10px] text-gray-500 mt-1">
+                      <span>₹3,000</span>
+                      <span>₹25,000</span>
+                      <span>₹50,000+</span>
+                    </div>
+                  </div>
                 </div>
+
                 <div className="sm:col-span-2">
                   <label className="block text-sm font-medium text-gray-300 mb-2">Your Message</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    required
                     rows={4}
                     placeholder="Tell us about your project..."
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all resize-none"
+                    className={`w-full px-4 py-3 bg-white/5 border ${
+                      errors.message ? "border-red-500 focus:ring-red-500/50" : "border-white/10 focus:border-blue-500 focus:ring-blue-500/50"
+                    } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all resize-none`}
                   />
+                  {errors.message && (
+                    <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1.5">
+                      <span className="inline-block w-1 h-1 bg-red-400 rounded-full" />
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
-<div className="sm:col-span-2">
-                   <button
-                     type="submit"
-                     disabled={loading}
-                     className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-blue-500/25 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                   >
-                     {loading ? (
-                       "Sending..."
-                     ) : (
-                       <>
-                         <Send className="w-5 h-5" />
-                         Send Message
-                       </>
-                     )}
-                   </button>
-                   {error && (
-                     <p className="text-red-400 text-sm mt-2">{error}</p>
-                   )}
-                 </div>
-               </div>
-             )}
+
+                <div className="sm:col-span-2">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-blue-500/25 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loading ? (
+                      "Sending..."
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        Send Message
+                      </>
+                    )}
+                  </button>
+                  {error && (
+                    <p className="text-red-400 text-sm mt-2">{error}</p>
+                  )}
+                </div>
+              </div>
+            )}
           </motion.form>
 
           {/* Sidebar Info */}
@@ -1046,15 +1192,18 @@ function Contact() {
               </div>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden h-48 lg:h-56">
-              <div className="w-full h-full bg-gradient-to-br from-[#0A0F2C] to-[#1a1f4e] flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                   <p className="text-gray-400 text-sm">Based in Salem, Tamilnadu</p>
-                  <p className="text-gray-500 text-xs mt-1">Serving clients worldwide</p>
-                </div>
-              </div>
+            {/* Map Embed */}
+            <div className="bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden h-48 lg:h-64">
+              <iframe
+                title="BuildStack Solution Location - Salem, Tamilnadu"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3909.5!2d78.152002!3d11.647098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1718470000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </motion.div>
         </div>
@@ -1078,12 +1227,12 @@ function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <button onClick={() => handleNav("#home")} className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                <Code className="w-4 h-4 text-white" />
+            <button onClick={() => handleNav("#home")} className="flex items-center gap-2.5 mb-4 group">
+              <div className="w-8 h-8 group-hover:scale-110 transition-transform duration-300">
+                <LogoIcon />
               </div>
                <span className="font-bold text-white">
-                 BuildStack <span className="text-blue-400">Solutions</span>
+                 BuildStack <span className="text-blue-400">Solution</span>
                </span>
             </button>
             <p className="text-gray-500 text-sm leading-relaxed mb-4">
@@ -1159,7 +1308,7 @@ function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-gray-500 text-sm">
-            &copy; {currentYear} BuildStack Solutions. All rights reserved.
+            &copy; {currentYear} BuildStack Solution. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-gray-600">
             <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
