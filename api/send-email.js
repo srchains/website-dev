@@ -50,7 +50,7 @@ export default async function handler(req, res) {
         </tr>
       </table>
       <p style="margin-top: 24px; font-size: 12px; color: #9ca3af; text-align: center;">
-        Sent from BuildStack Solutions contact form
+        Sent from BuildStack Solution contact form
       </p>
     </div>
   `;
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'BuildStack Solutions <onboarding@resend.dev>',
+      from: process.env.EMAIL_FROM || 'BuildStack Solution <onboarding@resend.dev>',
       to: [process.env.EMAIL_TO || 'buildstacksolution@gmail.com'],
       subject: `New Contact: ${name || 'Website Inquiry'}`,
       html,

@@ -65,7 +65,7 @@ app.post('/api/send-email', async (req, res) => {
         </tr>
       </table>
       <p style="margin-top: 24px; font-size: 12px; color: #9ca3af; text-align: center;">
-        Sent from BuildStack Solutions contact form
+        Sent from BuildStack Solution contact form
       </p>
     </div>
   `;
@@ -74,7 +74,7 @@ app.post('/api/send-email', async (req, res) => {
     const resend = new Resend(apiKey);
 
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'BuildStack Solutions <onboarding@resend.dev>',
+      from: process.env.EMAIL_FROM || 'BuildStack Solution <onboarding@resend.dev>',
       to: [process.env.EMAIL_TO || 'buildstacksolution@gmail.com'],
       subject: `New Contact: ${name || 'Website Inquiry'}`,
       html,
@@ -98,5 +98,5 @@ app.listen(PORT, () => {
   console.log(`\n🚀 Email API server running at http://localhost:${PORT}`);
   console.log(`📧 Resend API key: ${process.env.RESEND_API_KEY ? '✅ loaded' : '❌ MISSING - check .env.local'}`);
   console.log(`📬 Sending to: ${process.env.EMAIL_TO || 'buildstacksolution@gmail.com (default)'}`);
-  console.log(`📤 From: ${process.env.EMAIL_FROM || 'BuildStack Solutions <onboarding@resend.dev> (default)'}\n`);
+  console.log(`📤 From: ${process.env.EMAIL_FROM || 'BuildStack Solution <onboarding@resend.dev> (default)'}\n`);
 });
