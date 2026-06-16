@@ -202,51 +202,12 @@ const fadeInUp = {
 /* ── Logo Icon ── */
 function LogoIcon({ className = "w-full h-full" }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 100 100"
+    <img
+      src="/logo.jpeg"
+      alt="BuildStack Solution Logo"
       className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Top Slab */}
-      <path
-        d="M50 12L82 28L50 44L18 28Z"
-        fill="url(#logoTopGrad)"
-      />
-      <path d="M18 28V34L50 50V44L18 28Z" fill="url(#logoLeftGrad)" />
-      <path d="M82 28V34L50 50V44L82 28Z" fill="url(#logoRightGrad)" />
-
-      {/* Middle Slab */}
-      <path
-        d="M50 30L82 46L50 62L18 46Z"
-        fill="url(#logoTopGrad)"
-      />
-      <path d="M18 46V52L50 68V62L18 46Z" fill="url(#logoLeftGrad)" />
-      <path d="M82 46V52L50 68V62L82 46Z" fill="url(#logoRightGrad)" />
-
-      {/* Bottom Slab */}
-      <path
-        d="M50 48L82 64L50 80L18 64Z"
-        fill="url(#logoTopGrad)"
-      />
-      <path d="M18 64V70L50 86V80L18 64Z" fill="url(#logoLeftGrad)" />
-      <path d="M82 64V70L50 86V80L82 64Z" fill="url(#logoRightGrad)" />
-
-      <defs>
-        <linearGradient id="logoTopGrad" x1="18" y1="28" x2="82" y2="44" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#60A5FA" />
-          <stop offset="100%" stopColor="#3B82F6" />
-        </linearGradient>
-        <linearGradient id="logoLeftGrad" x1="18" y1="28" x2="50" y2="50" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#2563EB" />
-          <stop offset="100%" stopColor="#1D4ED8" />
-        </linearGradient>
-        <linearGradient id="logoRightGrad" x1="50" y1="44" x2="82" y2="28" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#1E40AF" />
-          <stop offset="100%" stopColor="#1E3A8A" />
-        </linearGradient>
-      </defs>
-    </svg>
+      style={{ objectFit: "contain", borderRadius: "6px" }}
+    />
   );
 }
 
