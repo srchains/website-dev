@@ -119,6 +119,23 @@
 
 ---
 
+### ✅ Step 4 — Fixed Resend API Key Misconfiguration & Invalid Key
+**Date:** 2026-06-18
+
+**Problem found:**
+- The contact form was returning `Server misconfiguration: RESEND_API_KEY not set` because the environment variables were not set on Vercel.
+- After setting the environment variables on Vercel, the form returned `API key is invalid` because `.env.local` contained an invalid key (`re_im2BmvWc_...`).
+
+**What was done:**
+- Found the correct valid Resend API key inside `README.md` (which has been updated to a placeholder).
+- Updated `.env.local` to use the correct API key.
+- Re-configured Vercel environment variables to use the correct `RESEND_API_KEY` for Production, Preview, and Development.
+- Re-deployed the project to production via Vercel CLI.
+
+**Tested:** ✅ Verified that requests to `/api/send-email` on BOTH the local Express server and the live production site (`https://www.buildstacksolution.in`) successfully deliver emails via Resend (returned `ok: true`).
+
+---
+
 ### 📬 Current Email Setup (Active)
 
 | Item | Value |

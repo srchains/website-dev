@@ -64,7 +64,7 @@ cp .env.example .env.local
 
 Your `.env.local` should look like:
 ```env
-RESEND_API_KEY=re_JNsYPS9y_CGgmh26YrpLa3gLhrNidYhaq
+RESEND_API_KEY=your_resend_api_key
 EMAIL_TO=your@email.com
 EMAIL_FROM=BuildStack Solutions <onboarding@resend.dev>
 ```
