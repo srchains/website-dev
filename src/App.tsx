@@ -997,7 +997,7 @@ function Contact() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 99760 49088"
                     className={`w-full px-4 py-3 bg-white/5 border ${
                       errors.phone ? "border-red-500 focus:ring-red-500/50" : "border-white/10 focus:border-blue-500 focus:ring-blue-500/50"
                     } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all`}
@@ -1136,8 +1136,8 @@ function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">WhatsApp</p>
-                    <a href="https://wa.me/919876543210" className="text-white font-medium hover:text-blue-400 transition-colors">
-                      +91 98765 43210
+                    <a href="https://wa.me/919976049088" className="text-white font-medium hover:text-blue-400 transition-colors">
+                      +91 99760 49088
                     </a>
                   </div>
                 </div>
@@ -1251,8 +1251,8 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/919876543210" className="text-gray-500 text-sm hover:text-blue-400 transition-colors">
-                  +91 98765 43210
+                <a href="https://wa.me/919976049088" className="text-gray-500 text-sm hover:text-blue-400 transition-colors">
+                  +91 99760 49088
                 </a>
               </li>
               <li className="text-gray-500 text-sm">Salem, Tamilnadu</li>

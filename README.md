@@ -248,7 +248,7 @@ All changes to this project are documented here.
 > This section will be updated automatically as new features and changes are made.
 
 - [ ] Verify custom domain on Resend (`buildstack.dev`) to use branded `from` address
-- [ ] Add WhatsApp click-to-chat link with real phone number
+- [x] Add WhatsApp click-to-chat link with real phone number
 - [ ] Add more portfolio projects as they are completed
 
 ---

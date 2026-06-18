@@ -136,6 +136,15 @@
 
 ---
 
+### ✅ Step 5 — WhatsApp and Contact Phone Number Updated
+**Date:** 2026-06-18
+
+**What was done:**
+- Updated the contact phone number placeholder, display text, and WhatsApp click-to-chat links across the application from the dummy `+91 98765 43210` to the real business number `+91 99760 49088` (link: `https://wa.me/919976049088`).
+- Checked off the WhatsApp task in `README.md`.
+
+---
+
 ### 📬 Current Email Setup (Active)
 
 | Item | Value |
