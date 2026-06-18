@@ -7,6 +7,7 @@ import {
   Quote, Mail, Phone, MapPin, Send, ArrowUp,
   Sparkles, Shield, Clock, Globe
 } from "lucide-react";
+import { div } from "framer-motion/client";
 
 // ── Types ─────────────────────────────────────────────────────
 interface NavLink {
